@@ -13,11 +13,11 @@ import {
   Card,
 } from 'semantic-ui-react';
 
-import { JournalEntry, CreateJournalEntryDto, UpdateJournalEntryDto } from 'src/models';
-import { JournalActions } from 'src/redux/actions';
+import { JournalEntry, CreateJournalEntryDto, UpdateJournalEntryDto } from '@/models';
+import { JournalActions } from '@/redux/actions';
 import { bindActionCreators } from 'redux';
-import JournalEntryModal from 'src/modals/JournalEntryModal';
-import { DateTime } from 'src/constants';
+import JournalEntryModal from '@/modals/JournalEntryModal';
+import { DateTime } from '@/constants';
 
 interface Props {
   history: any;

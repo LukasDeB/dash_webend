@@ -10,7 +10,8 @@ import {
   Card,
   Label,
 } from 'semantic-ui-react';
-import { UpdateGoalDto, CreateGoalDto, Goal, Quest } from 'src/models';
+import { UpdateGoalDto, CreateGoalDto, Goal, Quest } from '@/models';
+import QuestPicker from '@/components/Quest/QuestPicker';
 
 export interface State extends CreateGoalDto {
   questSearch: string;
@@ -127,6 +128,10 @@ class CreateGoalModal extends React.Component<Props, State> {
             onSubmit={this.onSubmit}
             loading={this.props.isLoading}
           >
+            <QuestPicker
+              onSelect={this.onSelectQuest}
+              onChange={this.onChangeQuestSearch}
+            />
             <Form.Field>
               <Form.Input
                 type="text"

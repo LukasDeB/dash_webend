@@ -12,7 +12,7 @@ import {
   DELETE_JOURNAL_ENTRY_FAILED,
   DELETE_JOURNAL_ENTRY_SUCCESS,
 } from '../constants';
-import { JournalEntry } from 'src/models';
+import { JournalEntry } from '@/models';
 
 export interface JournalReducer {
   isLoading: boolean;

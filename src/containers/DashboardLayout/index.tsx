@@ -2,33 +2,26 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {
-  Container,
-  Divider,
-  Dropdown,
-  Grid,
-  Header,
-  Image,
-  List,
-  Menu,
   Segment,
-  Icon,
   Sidebar,
+  Container,
 } from 'semantic-ui-react';
-import TopNavigation from '../../components/TopNavigation';
-import HorizontalSidebar from '../../components/HorizontalSidebar';
-import PrivateRoute from '../../components/PrivateRoute';
-import { AuthActions } from '../../redux/actions';
+import { AuthActions } from '@/redux/actions';
+
+import TopNavigation from '@/components/Common/TopNavigation';
+import HorizontalSidebar from '@/components/Common/HorizontalSidebar';
+import PrivateRoute from '@/components/Core/PrivateRoute';
 import Dashboard from '../Dashboard';
 import Goals from '../Goals';
-
-import './styles.css';
-import { isNullOrUndefined } from 'util';
 import Quests from '../Quests';
 import Journal from '../Journal';
 import Profile from '../Profile';
 import Feeds from '../Feeds';
 import Feed from '../Feed';
 import SongBook from '../SongBook';
+import Economy from '../Economy';
+import Savings from '../Savings';
+import './styles.css';
 
 interface Props {
   history: any;
@@ -40,7 +33,7 @@ interface State {
 
 class DashboardLayout extends React.Component<Props, State> {
   state = {
-    isSidebarOpen: false,
+    isSidebarOpen: true,
   };
 
   componentDidMount() {
@@ -73,6 +66,8 @@ class DashboardLayout extends React.Component<Props, State> {
               <PrivateRoute exact={true} path="/dashboard/feeds" component={Feeds} />
               <PrivateRoute exact={true} path="/dashboard/profile" component={Profile} />
               <PrivateRoute exact={true} path="/dashboard/song-book" component={SongBook} />
+              <PrivateRoute exact={true} path="/dashboard/economy" component={Economy} />
+              <PrivateRoute exact={true} path="/dashboard/savings" component={Savings} />
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>

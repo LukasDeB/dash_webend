@@ -8,7 +8,7 @@ import {
   Form,
   Grid,
 } from 'semantic-ui-react';
-import { Feed, CreateFeedDto, UpdateFeedDto } from 'src/models';
+import { Feed, CreateFeedDto, UpdateFeedDto } from '@/models';
 import 'draft-js/dist/Draft.css';
 
 export interface State extends CreateFeedDto {

@@ -7,7 +7,7 @@ import {
   Header,
   Form,
 } from 'semantic-ui-react';
-import { UpdateQuestDto, CreateQuestDto, Quest } from 'src/models';
+import { UpdateQuestDto, CreateQuestDto, Quest } from '@/models';
 
 export interface State extends CreateQuestDto {
 

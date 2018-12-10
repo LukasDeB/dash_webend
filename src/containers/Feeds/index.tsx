@@ -13,10 +13,10 @@ import {
   Card,
 } from 'semantic-ui-react';
 
-import { Feed, CreateFeedDto, UpdateFeedDto } from 'src/models';
-import { FeedsActions } from 'src/redux/actions';
+import { Feed, CreateFeedDto, UpdateFeedDto } from '@/models';
+import { FeedsActions } from '@/redux/actions';
 import { bindActionCreators } from 'redux';
-import FeedModal from 'src/modals/FeedModal';
+import FeedModal from '@/modals/FeedModal';
 
 interface Props {
   history: any;

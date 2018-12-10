@@ -19,8 +19,8 @@ import {
   FAIL_GOAL_SUCCESS,
 } from '../constants';
 import { AuthActions } from './auth';
-import { Goals } from 'src/api';
-import { User, CreateGoalDto, UpdateGoalDto } from 'src/models';
+import { Goals } from '@/api';
+import { User, CreateGoalDto, UpdateGoalDto } from '@/models';
 
 const getGoals = () => dispatch => {
   dispatch({ type: GET_GOALS });

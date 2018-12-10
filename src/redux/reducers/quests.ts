@@ -12,7 +12,7 @@ import {
   DELETE_QUEST_FAILED,
   DELETE_QUEST_SUCCESS,
 } from '../constants';
-import { Quest } from 'src/models';
+import { Quest } from '@/models';
 
 export interface QuestsReducer {
   isLoading: boolean;

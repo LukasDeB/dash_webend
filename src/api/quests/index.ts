@@ -1,5 +1,5 @@
 import { getApiInstance } from '../instance';
-import { CreateQuestDto, UpdateQuestDto } from 'src/models';
+import { CreateQuestDto, UpdateQuestDto } from '@/models';
 
 const getQuests = async () => {
   const api = await getApiInstance();

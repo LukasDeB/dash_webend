@@ -2,14 +2,14 @@ import * as React from 'react';
 import { debounce, includes } from 'lodash';
 import { connect } from 'react-redux';
 import {
-  Search, Header, Icon,
+  Search, Header, Icon, SearchProps,
 } from 'semantic-ui-react';
 import {
   QuestsActions,
-} from 'src/redux/actions';
-import { Quest } from 'src/models';
+} from '../../../redux/actions';
+import { Quest } from '../../../models';
 
-export interface QuestPickerProps {
+export interface QuestPickerProps extends SearchProps {
   isLoading: boolean;
   quests: Quest[];
   value: string;
@@ -18,32 +18,41 @@ export interface QuestPickerProps {
   onSelect: (quest: Quest) => void;
 }
 
-class QuestPicker extends React.Component<QuestPickerProps, {}> {
+export interface QuestPickerState {
+  search: string;
+}
+
+class QuestPicker extends React.Component<QuestPickerProps, QuestPickerState> {
+  state = { search: '' };
+
   componentDidMount() {
     this.fetchQuests();
   }
 
-  shouldComponentUpdate(nextProps: QuestPickerProps) {
+  onChange = (e, data: SearchProps) => this.setState({ search: data.value || '' });
+
+  componentWillReceiveProps(nextProps: QuestPickerProps) {
     const {
-      isLoading: nextIsLoading, quests: nextQuests, value: nextValue,
+      isLoading: nextIsLoading, quests: nextQuests,
     } = nextProps;
     const {
-      isLoading, quests, value,
+      isLoading, quests,
     } = this.props;
-    return (
+    if (
       nextIsLoading !== isLoading ||
-      nextQuests !== quests ||
-      nextValue !== value
-    );
+      nextQuests !== quests
+    ) {
+      this.forceUpdate();
+    }
   }
 
   get results() {
     const {
-      value,
       quests,
     } = this.props;
-    const list = value.length
-      ? quests.filter(itm => includes(itm.name, value))
+    const { search } = this.state;
+    const list = search !== ''
+      ? quests.filter(itm => includes(itm.name.toLowerCase(), search.toLowerCase()))
       : quests;
     return list.map(itm => ({
       id: itm.id,
@@ -52,8 +61,6 @@ class QuestPicker extends React.Component<QuestPickerProps, {}> {
   }
 
   fetchQuests = () => this.props.getQuests();
-
-  onChange = (e, props) => this.props.onChange(props.value);
 
   handleResultSelect = (e, props) => {
     if (!props.result.id) {
@@ -69,18 +76,18 @@ class QuestPicker extends React.Component<QuestPickerProps, {}> {
 
   render() {
     const {
-      value,
       isLoading,
     } = this.props;
+    const { search } = this.state;
     return (
       <Search
         loading={isLoading}
+        value={search}
         onResultSelect={this.handleResultSelect}
-        value={value}
-        onSearchChange={debounce(this.onChange, 500, { leading: true })}
+        onSearchChange={this.onChange}
         results={this.results}
         resultRenderer={this.renderQuest}
-        defaultOpen={true}
+        defaultOpen={false}
       />
     );
   }

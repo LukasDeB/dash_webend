@@ -15,8 +15,8 @@ import {
 } from 'semantic-ui-react';
 
 import { bindActionCreators } from 'redux';
-import JournalEntryModal from 'src/modals/JournalEntryModal';
-import AvatarGenerator from 'src/components/Common/AvatarGenerator';
+import JournalEntryModal from '@/modals/JournalEntryModal';
+import AvatarGenerator from '@/components/Common/AvatarGenerator';
 
 interface Props {
   history: any;

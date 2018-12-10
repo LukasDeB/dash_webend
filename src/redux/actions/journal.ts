@@ -12,8 +12,8 @@ import {
   DELETE_JOURNAL_ENTRY_FAILED,
   DELETE_JOURNAL_ENTRY_SUCCESS,
 } from '../constants';
-import { Journal } from 'src/api';
-import { UpdateJournalEntryDto, CreateJournalEntryDto } from 'src/models';
+import { Journal } from '@/api';
+import { UpdateJournalEntryDto, CreateJournalEntryDto } from '@/models';
 
 const getJournal = () => dispatch => {
   dispatch({ type: GET_JOURNAL });

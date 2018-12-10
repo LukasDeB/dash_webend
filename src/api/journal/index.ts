@@ -1,5 +1,5 @@
 import { getApiInstance } from '../instance';
-import { CreateJournalEntryDto, UpdateJournalEntryDto } from 'src/models';
+import { CreateJournalEntryDto, UpdateJournalEntryDto } from '@/models';
 
 const getJournal = async () => {
   const api = await getApiInstance();

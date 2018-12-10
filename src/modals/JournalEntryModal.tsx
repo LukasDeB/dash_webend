@@ -8,7 +8,7 @@ import {
   Form,
 } from 'semantic-ui-react';
 import { Editor, EditorState, ContentState } from 'draft-js';
-import { JournalEntry, CreateJournalEntryDto, UpdateJournalEntryDto } from 'src/models';
+import { JournalEntry, CreateJournalEntryDto, UpdateJournalEntryDto } from '@/models';
 import 'draft-js/dist/Draft.css';
 
 export interface State extends CreateJournalEntryDto {

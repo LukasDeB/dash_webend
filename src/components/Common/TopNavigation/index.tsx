@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
   Menu, Icon, Button,
 } from 'semantic-ui-react';
-import { State as AuthState } from 'src/redux/reducers/auth';
+import { State as AuthState } from '@/redux/reducers/auth';
 
 export interface Props {
   toggleSidebar: () => void;

@@ -1,5 +1,5 @@
 import { getApiInstance } from '../instance';
-import { CreateGoalDto, UpdateGoalDto } from 'src/models';
+import { CreateGoalDto, UpdateGoalDto } from '@/models';
 
 const getGoals = async () => {
   const api = await getApiInstance();

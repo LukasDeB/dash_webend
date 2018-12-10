@@ -12,8 +12,8 @@ import {
   DELETE_QUEST_FAILED,
   DELETE_QUEST_SUCCESS,
 } from '../constants';
-import { Quests } from 'src/api';
-import { CreateQuestDto, UpdateQuestDto } from 'src/models';
+import { Quests } from '@/api';
+import { CreateQuestDto, UpdateQuestDto } from '@/models';
 
 const getQuests = () => dispatch => {
   dispatch({ type: GET_QUESTS });

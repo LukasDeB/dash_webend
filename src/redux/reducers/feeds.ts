@@ -12,7 +12,7 @@ import {
   DELETE_FEED_FAILED,
   DELETE_FEED_SUCCESS,
 } from '../constants';
-import { FeedsReducer } from 'src/models';
+import { FeedsReducer } from '@/models';
 
 const initialState: FeedsReducer = {
   isLoading: false,

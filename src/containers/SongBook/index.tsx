@@ -28,7 +28,8 @@ interface TimeSignature {
 
 interface Block { // cada seccion, con su nombre, compases y signature
   label: string;
-  measures: Measure[]; // el [] significa que es un array de lo que sea que viene antes
+  measures: Measure[];
+  // el [] significa que es un array de lo que sea que viene antes
   // en este caso, un array de Measure. el tipo measure esta definido en la linea 51, be patient, young one
   // asi podría ser string[] como en el ejemplo que vimos de los nombres, o un any[] para denotar
   // un array como aquel todo podrido que tenia numeros, string, bool o cualquier cosa
@@ -49,7 +50,8 @@ enum NoteDurations {
 }
 
 interface Note {
-  pitch: string; // por ahora que sea string, en el futuro me gustaría dividir en G -> 7 -> maj = Gmaj7
+  pitch: string;
+  // por ahora que sea string, en el futuro me gustaría dividir en G -> 7 -> maj = Gmaj7
   // pero que por ahora sea solamente un texto en el que podes poner pepito si queres
   duration: NoteDurations; // como NoteDurations es un enum, que devuelve un numero, duration es un numero
   // limitado a los que contenga NoteDurations, por eso enum, por enumerar las posibilidades
@@ -96,6 +98,7 @@ class SongBook extends React.Component<Props, State> {
   }
 
   addSectionToSong(e: any, data: any) {
+
     console.log(e, data);
   }
 

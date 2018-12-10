@@ -18,7 +18,7 @@ import {
   FAIL_GOAL_FAILED,
   FAIL_GOAL_SUCCESS,
 } from '../constants';
-import { Goal, GoalStatuses } from 'src/models';
+import { Goal, GoalStatuses } from '@/models';
 
 export interface GoalsReducer {
   isLoading: boolean;

@@ -12,8 +12,8 @@ import {
   DELETE_FEED_FAILED,
   DELETE_FEED_SUCCESS,
 } from '../constants';
-import { Feeds } from 'src/api';
-import { UpdateFeedDto, CreateFeedDto } from 'src/models';
+import { Feeds } from '@/api';
+import { UpdateFeedDto, CreateFeedDto } from '@/models';
 
 const getFeeds = () => dispatch => {
   dispatch({ type: GET_FEEDS });

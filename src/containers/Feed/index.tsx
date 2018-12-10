@@ -14,10 +14,10 @@ import {
   Card,
 } from 'semantic-ui-react';
 
-import { Feed as FeedModel, CreateFeedDto, UpdateFeedDto } from 'src/models';
-import { FeedsActions } from 'src/redux/actions';
+import { Feed as FeedModel, CreateFeedDto, UpdateFeedDto } from '@/models';
+import { FeedsActions } from '@/redux/actions';
 import { bindActionCreators } from 'redux';
-import { DateTime } from 'src/constants';
+import { DateTime } from '@/constants';
 
 interface Props {
   history: any;

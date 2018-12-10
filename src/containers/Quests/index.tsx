@@ -11,11 +11,11 @@ import {
   Button,
   Card,
 } from 'semantic-ui-react';
-import { Quest, CreateQuestDto, UpdateQuestDto } from 'src/models';
-import { QuestsActions } from 'src/redux/actions';
+import { Quest, CreateQuestDto, UpdateQuestDto } from '@/models';
+import { QuestsActions } from '@/redux/actions';
 import { bindActionCreators } from 'redux';
 import CreateQuestModal from '../../modals/CreateQuestModal';
-import { QuestsReducer } from 'src/redux/reducers/quests';
+import { QuestsReducer } from '@/redux/reducers/quests';
 
 interface Props {
   history: any;

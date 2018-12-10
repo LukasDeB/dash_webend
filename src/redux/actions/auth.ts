@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as actions from '../constants';
 import { LoginDto, User } from '../../models';
-import { User as UserAPI } from 'src/api/user';
+import { User as UserAPI } from '@/api/user';
 
 const getToken = (user: LoginDto) => dispatch => {
   dispatch({ type: actions.GET_TOKEN });

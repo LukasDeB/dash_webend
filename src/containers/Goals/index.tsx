@@ -2,6 +2,7 @@ import * as React from 'react';
 import { get } from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import {
   Container,
   Divider,
@@ -16,11 +17,11 @@ import {
   Card,
   Rail,
 } from 'semantic-ui-react';
-import { Goal, CreateGoalDto, GoalStatuses } from 'src/models';
-import { GoalsActions } from 'src/redux/actions';
-import { GoalsReducer } from 'src/redux/reducers/goals';
-import { bindActionCreators } from 'redux';
-import CreateGoalModal from './modals/CreateGoalModal';
+
+import { Goal, CreateGoalDto, GoalStatuses } from '@/models';
+import { GoalsActions } from '@/redux/actions';
+import { GoalsReducer } from '@/redux/reducers/goals';
+import CreateGoalModal from '@/modals/CreateGoalModal';
 
 interface Props {
   history: any;

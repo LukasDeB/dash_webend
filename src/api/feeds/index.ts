@@ -1,5 +1,5 @@
 import { getApiInstance } from '../instance';
-import { CreateFeedDto, UpdateFeedDto } from 'src/models';
+import { CreateFeedDto, UpdateFeedDto } from '@/models';
 
 const getFeeds = async () => {
   const api = await getApiInstance();

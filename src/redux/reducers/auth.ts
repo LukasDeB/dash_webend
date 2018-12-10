@@ -1,5 +1,5 @@
 import * as types from '../constants';
-import { User } from 'src/models';
+import { User } from '@/models';
 
 export interface State {
   isLoading: boolean;
