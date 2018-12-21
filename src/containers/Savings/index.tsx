@@ -34,7 +34,6 @@ interface State {
 }
 
 class Savings extends React.Component<Props, State> {
-  stickyRef;
   constructor(props: Props) {
     super(props);
 
@@ -58,7 +57,20 @@ class Savings extends React.Component<Props, State> {
     }, base);
   }
 
+  addGoal = () => this.setState({ selectedGoal: null, isModalOpen: true });
+
   editGoal = selectedGoal => this.setState({ selectedGoal, isModalOpen: true });
+
+  deleteGoal = id => {
+    const savingsGoals = this.state.savingsGoals;
+    const index = savingsGoals.findIndex(itm => itm.id === id);
+    if (index >= 0) {
+      savingsGoals.splice(index, 1);
+      this.setState({
+        savingsGoals,
+      }, this.persistData);
+    }
+  }
 
   showModal = () => this.setState({ isModalOpen: true });
 
@@ -71,24 +83,25 @@ class Savings extends React.Component<Props, State> {
         title,
         reason,
         amount,
+        dueDate,
         progress,
-        dueDate: date,
         selectedQuests,
       } = data;
-      const dueDate = moment(date || '');
-      if (id && state.savingsGoals.find(itm => itm.id === id)) {
-        const savingsGoals = state.savingsGoals.map(itm => itm.id === id ? {
-          ...itm,
-          title,
-          reason,
-          dueDate,
-          amount: +amount,
-          progress: +progress,
-          relatedQuests: selectedQuests,
-        } : itm);
+      if (id) {
+        const goalIndex = state.savingsGoals.findIndex(itm => itm.id === id);
+        if (goalIndex >= 0) {
+          state.savingsGoals.splice(goalIndex, 1, {
+            ...state.savingsGoals[goalIndex],
+            title,
+            reason,
+            dueDate,
+            amount: +amount,
+            progress: +progress,
+            relatedQuests: selectedQuests,
+          });
+        }
         return {
           ...state,
-          savingsGoals,
           isModalOpen: false,
         };
       }
@@ -109,8 +122,6 @@ class Savings extends React.Component<Props, State> {
     }, this.persistData);
   }
 
-  handleContextRef = ref => { this.stickyRef = ref; };
-
   persistData() {
     localStorage.setItem('savingsGoals', JSON.stringify(this.state.savingsGoals));
   }
@@ -123,7 +134,7 @@ class Savings extends React.Component<Props, State> {
       selectedGoal,
     } = this.state;
     return (
-      <Segment basic={true} ref={this.handleContextRef}>
+      <Segment basic={true}>
         <SavingsGoalModal
           isOpen={isModalOpen}
           isLoading={false}
@@ -141,22 +152,26 @@ class Savings extends React.Component<Props, State> {
             content="Juntar todo peso posible hasta los 35, reventarlo todo y morirse de una sobredosis"
           />
         </Header>
-        <Sticky context={this.stickyRef}>
-          <Button.Group className="btnGroupResourceOptions" floated="right" vertical={true}>
-            <Button onClick={this.showModal} circular={true} icon={true}>
-              <Icon name="add" />
-            </Button>
-          </Button.Group>
-        </Sticky>
+        <Button.Group
+          floated="right"
+          vertical={true}
+          style={{ marginBottom: '10px' }}
+          className="btnGroupResourceOptions"
+        >
+          <Button onClick={this.addGoal} circular={true} icon={true}>
+            <Icon name="add" />
+          </Button>
+        </Button.Group>
         <Card fluid={true} centered={true}>
           <Card.Content textAlign="center">
             <h2>{`Tu economía actual es de: $ ${money}`}</h2>
           </Card.Content>
         </Card>
-        <Card.Group>
+        <Card.Group centered={true}>
           {
             savingsGoals.map(itm => {
               const onClick = () => this.editGoal(itm);
+              const onDelete = () => this.deleteGoal(itm.id);
               return (
                 <Card key={`savingsGoal_${itm.id}`}>
                   <Card.Content>
@@ -164,6 +179,7 @@ class Savings extends React.Component<Props, State> {
                     {itm.dueDate && (
                       <Card.Meta>Vence: {itm.dueDate.format(DateTime.displayDate)}</Card.Meta>
                     )}
+                    <Button floated="right" size="mini" onClick={onDelete} icon="delete" circular={true} />
                     <Button floated="right" size="mini" onClick={onClick} icon={true} circular={true}>
                       <Icon name="edit" />
                     </Button>

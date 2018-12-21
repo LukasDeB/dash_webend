@@ -50,6 +50,9 @@ class Economy extends React.Component<Props, State> {
     };
   }
 
+  get money() {
+    return this.getTotalMoney(this.state.transactions, 0);
+  }
   getTotalMoney(transactions: Transaction[], base: number = 0): number {
     return transactions.reduce((money, trans) => {
       const isNeg = +trans.amount < 0;
@@ -95,6 +98,19 @@ class Economy extends React.Component<Props, State> {
     }, this.persistData);
   }
 
+  deleteTransaction = id => {
+    const transactions = this.state.transactions;
+    const index = transactions.findIndex(itm => itm.id === id);
+    if (index >= 0) {
+      transactions.splice(index, 1);
+      this.setState(state => ({
+        ...state,
+        money: this.getTotalMoney(transactions, 0),
+        transactions,
+      }), this.persistData);
+    }
+  }
+
   persistData() {
     localStorage.setItem('money', JSON.stringify(this.state.money));
     localStorage.setItem('transactions', JSON.stringify(this.state.transactions));
@@ -134,32 +150,38 @@ class Economy extends React.Component<Props, State> {
         </Sticky>
         <Card fluid={true} centered={true}>
           <Card.Content textAlign="center">
-            <h2>{`Tu economía actual es de: $ ${money}`}</h2>
+            <h2>{`Tu economía actual es de: $ ${this.money}`}</h2>
           </Card.Content>
         </Card>
         <Feed>
           {
             transactions.map(itm => {
               const isNeg = +itm.amount < 0;
+              const onDelete = () => this.deleteTransaction(itm.id);
+              const header = (
+                <React.Fragment>
+                  <span style={{ maxWidth: '90%' }}>{itm.description}</span>
+                  <Button floated="right" onClick={onDelete} icon="delete" basic={true} style={{ marginLeft: '10px' }} compact={true} />
+                </React.Fragment>
+              );
               const message = !isNeg
                 ? (
                   <Message
                     success={true}
                     icon="plus circle"
-                    header={itm.description}
+                    header={header}
                     content={`Ingreso de $ ${+itm.amount} - ${itm.date.fromNow()}`}
                   />
                 ) : (
                   <Message
                     error={true}
                     icon="minus circle"
-                    header={itm.description}
+                    header={header}
                     content={`Gasto de $ ${Math.abs(itm.amount)} - ${itm.date.fromNow()}`}
                   />
                 );
               return (
                 <Feed.Event key={`feed_${itm.id}`}>
-                  {/* <Feed.Label icon={icon} /> */}
                   <Feed.Content>{message}</Feed.Content>
                 </Feed.Event>
               );

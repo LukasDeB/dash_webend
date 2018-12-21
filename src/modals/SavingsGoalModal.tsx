@@ -23,7 +23,7 @@ export interface SavingsGoalModalState {
   amount: number;
   progress: number;
   reason: string;
-  dueDate: moment.Moment | null;
+  dueDate: moment.Moment;
   selectedQuests: Quest[];
 }
 
@@ -36,20 +36,23 @@ export interface Props {
   onSubmit: (savingsGoal: SavingsGoalModalState) => void;
 }
 
+const initialState: SavingsGoalModalState = {
+  id: undefined,
+  title: '',
+  reason: '',
+  amount: 0,
+  progress: 0,
+  dueDate: moment(),
+  selectedQuests: [],
+};
+
 class SavingsGoalModal extends React.Component<Props, SavingsGoalModalState> {
-  state = {
-    title: '',
-    reason: '',
-    amount: 0,
-    progress: 0,
-    dueDate: moment(),
-    selectedQuests: [],
-  };
+  state = { ...initialState };
 
   form: any = null;
 
   componentWillReceiveProps(nextProps: Props) {
-    if (nextProps.selected) {
+    if (nextProps.selected && nextProps.selected !== this.props.selected) {
       if (nextProps.selected.id !== get(this.props, 'selected.id', null)) {
         return this.getState(nextProps.selected);
       }
@@ -59,20 +62,23 @@ class SavingsGoalModal extends React.Component<Props, SavingsGoalModalState> {
   }
 
   getState(goal?: SavingsGoal) {
-    const data = goal || {};
+    if (!goal) {
+      this.setState({ ...initialState });
+      return;
+    }
     this.setState({
-      id: get(data, 'id'),
-      title: get(data, 'title', ''),
-      amount: get(data, 'amount', 0),
-      progress: get(data, 'progress', 0),
-      reason: get(data, 'reason', ''),
-      dueDate: get(data, 'dueDate', moment()),
-      selectedQuests: get(data, 'relatedQuests', []),
+      id: goal.id,
+      title: goal.title || '',
+      amount: goal.amount,
+      progress: goal.progress,
+      reason: goal.reason,
+      dueDate: goal.dueDate ? moment(goal.dueDate) : moment(),
+      selectedQuests: goal.relatedQuests,
     });
   }
 
-  onChangeDate = (e, data: { value: string }) => this.setState({
-    dueDate: moment(data.value, DateTime.DatePicker),
+  onChangeDate = (e, data: { value: string, dateFormat: string }) => this.setState({
+    dueDate: moment(data.value, data.dateFormat),
   })
 
   onChangeForm = (e, { name, value }) => this.setState(prevState => {
@@ -159,10 +165,11 @@ class SavingsGoalModal extends React.Component<Props, SavingsGoalModalState> {
               <label>Fecha Límite</label>
               <DateInput
                 name="date"
-                inline={true}
                 iconPosition="left"
-                dateFormat={DateTime.displayDate}
+                closeOnMouseLeave={false}
+                popupPosition="top center"
                 onChange={this.onChangeDate}
+                // dateFormat={DateTime.displayDate}
                 value={dueDate.format(DateTime.DatePicker)}
                 minDate={moment().format(DateTime.DatePicker)}
               />

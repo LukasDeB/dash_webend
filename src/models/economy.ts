@@ -15,5 +15,5 @@ export interface SavingsGoal {
   progress: number;
   reason: string;
   relatedQuests: Quest[];
-  dueDate?: moment.Moment;
+  dueDate: moment.Moment;
 }
